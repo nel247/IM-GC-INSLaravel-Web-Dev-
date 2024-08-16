@@ -1,0 +1,82 @@
+soal 1 -membuat database
+
+jawaban:
+
+CREATE DATABASE `myshop`;
+
+soal 2 membuat tabel di dalam database
+
+jawaban:
+
+CREATE TABLE `users` (
+	`id` INT NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NOT NULL DEFAULT '0',
+	`email` VARCHAR(255) NOT NULL DEFAULT '0',
+	`password` VARCHAR(255) NOT NULL DEFAULT '0',
+	PRIMARY KEY (`id`)
+)
+COLLATE='utf8mb4_0900_ai_ci'
+
+CREATE TABLE `categories` (
+	`id` INT(10) NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255) NULL DEFAULT '' COLLATE 'utf8mb4_0900_ai_ci',
+	PRIMARY KEY (`id`) USING BTREE
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+;
+
+
+CREATE TABLE `items` (
+	`id` INT(10) NULL DEFAULT NULL,
+	`name` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`description` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_0900_ai_ci',
+	`price` INT(10) NULL DEFAULT NULL,
+	`stock` INT(10) NULL DEFAULT NULL,
+	`category_id` INT(10) NOT NULL,
+	INDEX `FK__categories` (`category_id`) USING BTREE,
+	CONSTRAINT `FK__categories` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+COLLATE='utf8mb4_0900_ai_ci'
+ENGINE=InnoDB
+;
+
+soal 3 memasukan data pada tabel
+
+jawaban:
+
+INSERT INTO `myshop`.`categories` (`name`) VALUES (`gadget`);
+INSERT INTO `myshop`.`categories` (`name`) VALUES (`cloth`);
+INSERT INTO `myshop`.`categories` (`name`) VALUES (`men`);
+INSERT INTO `myshop`.`categories` (`name`) VALUES (`women`);
+INSERT INTO `myshop`.`categories` (`name`) VALUES (`branded`);
+
+INSERT INTO `myshop`.`users` (`name`, `email`, `password`) VALUES (`John Do`, `john@doe.com`, `terserah`);
+INSERT INTO `myshop`.`users` (`name`, `email`, `password`) VALUES (`Jane Doe`, `jane@doe.com`, `iyaterserah`);
+
+INSERT INTO `myshop`.`items` (`name`, `description`, `price`, `stock`, `category_id`) VALUES (`Samsung b50`, `hapenkeren dari merek samsung`, 2000000, 20, 1);
+INSERT INTO `myshop`.`items` (`name`, `description`, `price`, `stock`, `category_id`) VALUES (`Unikloh`, `baju keren dari brand ternama`, 500000` 134`2);
+INSERT INTO `myshop`.`items` (`name`, `description`, `price`, `stock`, `category_id`) VALUES (`IMHO Watch`, `jam tangan anak yang jujur banget`, 800000, 23, 1);
+
+soal 4 menganbil data dari Database
+
+A. Mengambil date users
+
+Jawaban:
+SELECT `id`, `name`, `email` FROM `users`;
+
+B. Mengambil data items
+
+Jawaban:
+SELECT * FORM `items` WHERE `price` > 100000;
+SELECT * FORM `items` WHERE `name` LIKE "uniko";
+
+C. Menampilkan data items join dengan kategori 
+
+Jawaban:
+SELECT items.name, item.description, categories.name AS category_name FROM `items` JOIN `categories` ON items.category_id = category.id;
+
+soal 5 - Mengubah Data dari Database
+
+Jawaban:
+UPDATE `myshop`.`items` SET `price`=`2500000` WHERE `name`=`Samsung b50`;
